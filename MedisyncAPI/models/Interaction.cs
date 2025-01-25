@@ -17,6 +17,11 @@ public class Interaction
     public string? InteractionType { get; set; } = string.Empty;
     public string? Reasoning { get; set; } = string.Empty;
 
+    // Add these new properties
+    public string? Pros { get; set; } = string.Empty;
+    public string? Cons { get; set; } = string.Empty;
+    public SeverityLevel Severity { get; set; } = SeverityLevel.None;
+
     [JsonIgnore]
     public Medication? Medication1 { get; set; }
     [JsonIgnore]

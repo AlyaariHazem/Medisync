@@ -1,0 +1,66 @@
+/* src/app/components/interactions/interactions.component.scss */
+.interactions-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  
+    form {
+      display: flex;
+      flex-direction: column;
+  
+      div {
+        margin-bottom: 10px;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+  
+        input, textarea {
+          width: 100%;
+          padding: 8px;
+          box-sizing: border-box;
+        }
+      }
+  
+      button {
+        width: 150px;
+        padding: 10px;
+        align-self: flex-start;
+      }
+    }
+  
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+  input, textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #314051;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+  }
+
+  input:hover, textarea:hover {
+    border: 1px solid #5ea1e7;
+  }
+
+  input:focus, textarea:focus {
+    border: 1px solid #5ea1e7;
+    box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+    outline: none;
+  }

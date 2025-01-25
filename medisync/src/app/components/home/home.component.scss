@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+}
+.container{
+  height: 80vh;
+}
+.size {
+  width: 59%;
+}
+:host ::ng-deep {
+  .p-multiselect {
+    width: 100% !important;
+    margin-left: 29% !important;
+  }
+}
+.check{
+  margin-left: 65%;
+  margin-top: 1.5rem;
+}

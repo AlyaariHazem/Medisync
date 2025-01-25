@@ -1,0 +1,39 @@
+<!-- src/app/components/medications/medications.component.html -->
+<div class="medications-container">
+    <h2>Manage Medications</h2>
+
+    <form [formGroup]="medicationForm" (ngSubmit)="addMedication()">
+        <div>
+            <label for="name">Name:</label>
+            <input id="name" formControlName="name" type="text" required>
+        </div>
+        <div>
+            <label for="use">Use:</label>
+            <input id="use" formControlName="use" type="text" required>
+        </div>
+        <div>
+            <label for="sideEffects">Side Effects (comma-separated):</label>
+            <input id="sideEffects" formControlName="sideEffects" type="text" required>
+        </div>
+        <button type="submit" [disabled]="medicationForm.invalid">Add Medication</button>
+    </form>
+
+    <div class="search-section">
+        <input [(ngModel)]="searchQuery" placeholder="Search medications..." />
+        <button (click)="searchMedications()">Search</button>
+    </div>
+    @if (errorMessage) {
+    <div class="error">
+        {{ errorMessage }}
+    </div>
+    }
+
+    <h3>Existing Medications</h3>
+    <ul>
+        @for (medication of medications; track $index) {
+        <li>
+            {{ medication.name }} - Use: {{ medication.use }} - Side Effects: {{ medication.sideEffects.join(', ') }}
+        </li>
+        }
+    </ul>
+</div>

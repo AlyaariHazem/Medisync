@@ -1,0 +1,186 @@
+.medications-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+  
+      div {
+        margin-bottom: 15px;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: 600;
+        }
+  
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #314051;
+          border-radius: 4px;
+          box-sizing: border-box;
+          transition: border 0.3s, box-shadow 0.3s;
+          font-size: 1rem;
+        }
+  
+        input:hover {
+          border: 1px solid #5ea1e7;
+        }
+  
+        input:focus {
+          border: 2px solid #5ea1e7 !important;
+          box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+          outline: none;
+        }
+      }
+  
+      button {
+        width: 150px;
+        padding: 12px;
+        align-self: flex-start;
+        border: 2px solid #314051;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: border 0.3s, box-shadow 0.3s, background-color 0.3s;
+        font-size: 1rem;
+  
+        &:hover {
+          border: 2px solid #5ea1e7;
+          background-color: #0056b3;
+        }
+  
+        &:focus {
+          border: 2px solid #5ea1e7;
+          box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+          outline: none;
+        }
+  
+        &:disabled {
+          background-color: #cccccc;
+          border: 2px solid #cccccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  
+    .search-section {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  
+      input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #314051;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: border 0.3s, box-shadow 0.3s;
+        font-size: 1rem;
+      }
+  
+      input:hover {
+        border: 1px solid #5ea1e7;
+      }
+  
+      input:focus {
+        border: 1px solid #5ea1e7;
+        box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+        outline: none;
+      }
+  
+      button {
+        padding: 12px;
+        border: 2px solid #28a745;
+        border-radius: 4px;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+        transition: border 0.3s, box-shadow 0.3s, background-color 0.3s;
+        font-size: 1rem;
+  
+        &:hover {
+          border: 2px solid #218838;
+          background-color: #218838;
+        }
+  
+        &:focus {
+          border: 2px solid #5ea1e7;
+          box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+          outline: none;
+        }
+      }
+  
+      @media (min-width: 600px) {
+        .search-section {
+          flex-direction: row;
+          align-items: center;
+  
+          input {
+            flex: 2;
+          }
+  
+          button {
+            flex: 1;
+          }
+        }
+      }
+    }
+  
+    .error {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+  
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 1rem;
+  
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .medications-container {
+        padding: 10px;
+  
+        form {
+          div {
+            margin-bottom: 10px;
+          }
+  
+          button {
+            width: 100%;
+          }
+        }
+  
+        .search-section {
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  

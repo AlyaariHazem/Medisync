@@ -1,90 +1,105 @@
-
 using Microsoft.AspNetCore.Mvc;
 using MedisyncAPI.models;
-using MedisyncAPI.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MedisyncAPI.Repositories.Interfaces;
 using MedisyncAPI.DTOS;
+using MedisyncAPI.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MedisyncAPI.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class InteractionsController : ControllerBase
+namespace MedisyncAPI.Controllers
 {
-    private readonly IInteractionRepository _interactionRepository;
-
-    public InteractionsController(IInteractionRepository interactionRepository)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class InteractionsController : ControllerBase
     {
-        _interactionRepository = interactionRepository;
-    }
+        private readonly IInteractionRepository _interactionRepository;
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Interaction>>> GetInteractions()
-    {
-        var interactions = await _interactionRepository.GetAllInteractionsAsync();
-        return Ok(interactions);
-    }
-
-   [HttpPost]
-    public async Task<IActionResult> AddInteractions(List<InteractionDTO> interactionDtos)
-    {
-        if (interactionDtos == null || interactionDtos.Count == 0)
+        public InteractionsController(IInteractionRepository interactionRepository)
         {
-            return BadRequest("No interactions provided.");
+            _interactionRepository = interactionRepository;
         }
 
-        var interactions = interactionDtos.Select(dto => new Interaction
+        // GET: api/Interactions
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Interaction>>> GetInteractions()
         {
-            Medication1Id = dto.Medication1Id,
-            Medication2Id = dto.Medication2Id,
-            InteractionType = dto.InteractionType,
-            Reasoning = dto.Reasoning
-        }).ToList();
-
-        await _interactionRepository.AddInteractionsAsync(interactions);
-        await _interactionRepository.SaveChangesAsync();
-
-        return Ok(interactions);
-    }
-
-    [HttpPost("check")]
-    public async Task<IActionResult> CheckDrugInteractions([FromBody] List<int> medicationIds)
-    {
-        if (medicationIds == null || medicationIds.Count < 2)
-        {
-            return BadRequest("You must select at least two medications to check interactions.");
+            var interactions = await _interactionRepository.GetAllInteractionsAsync();
+            return Ok(interactions);
         }
 
-        var interactions = await _interactionRepository.GetInteractionsForMedicationsAsync(medicationIds);
-        return Ok(interactions);
+        // POST: api/Interactions (add multiple interactions)
+       [HttpPost]
+        public async Task<IActionResult> AddInteractions([FromBody] List<InteractionDTO> interactionDtos)
+        {
+            if (interactionDtos == null || interactionDtos.Count == 0)
+            {
+                return BadRequest("No interactions provided.");
+            }
+
+            var interactions = interactionDtos.Select(dto => new Interaction
+            {
+                Medication1Id = dto.Medication1Id,
+                Medication2Id = dto.Medication2Id,
+                InteractionType = dto.InteractionType,
+                Reasoning = dto.Reasoning,
+
+                Pros = dto.Pros,
+                Cons = dto.Cons,
+                Severity = dto.Severity
+            }).ToList();
+
+            await _interactionRepository.AddInteractionsAsync(interactions);
+            await _interactionRepository.SaveChangesAsync();
+
+            return Ok(interactions);
+        }
+
+
+        // NEW: POST: api/Interactions/checkByName (check by medication NAMES)
+        [HttpPost("checkByName")]
+        public async Task<IActionResult> CheckDrugInteractionsByName([FromBody] List<string> medicationNames)
+        {
+            if (medicationNames == null || medicationNames.Count < 2)
+            {
+                return BadRequest("You must provide at least two medication names to check interactions.");
+            }
+
+            var interactions = await _interactionRepository.GetInteractionsForMedicationNamesAsync(medicationNames);
+            return Ok(interactions);
+        }
+
+        // PUT: api/Interactions/5
+       [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateInteraction(int id, [FromBody] InteractionDTO interactionDto)
+        {
+            var interaction = await _interactionRepository.GetInteractionByIdAsync(id);
+            if (interaction == null)
+                return NotFound("Interaction not found");
+
+            interaction.Medication1Id = interactionDto.Medication1Id;
+            interaction.Medication2Id = interactionDto.Medication2Id;
+            interaction.InteractionType = interactionDto.InteractionType;
+            interaction.Reasoning = interactionDto.Reasoning;
+
+            interaction.Pros = interactionDto.Pros;
+            interaction.Cons = interactionDto.Cons;
+            interaction.Severity = interactionDto.Severity;
+
+            await _interactionRepository.SaveChangesAsync();
+            return NoContent();
+        }
+
+
+        // DELETE: api/Interactions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteInteraction(int id)
+        {
+            var interaction = await _interactionRepository.GetInteractionByIdAsync(id);
+            if (interaction == null)
+                return NotFound("Interaction not found");
+
+            await _interactionRepository.DeleteInteraction(interaction);
+            return NoContent();
+        }
     }
-
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateInteraction(int id, InteractionDTO interactionDto)
-    {
-        var interaction = await _interactionRepository.GetInteractionByIdAsync(id);
-        if (interaction == null) return NotFound();
-
-        interaction.Medication1Id = interactionDto.Medication1Id;
-        interaction.Medication2Id = interactionDto.Medication2Id;
-        interaction.InteractionType = interactionDto.InteractionType;
-        interaction.Reasoning = interactionDto.Reasoning;
-
-        await _interactionRepository.SaveChangesAsync();
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteInteraction(int id)
-    {
-        var interaction = await _interactionRepository.GetInteractionByIdAsync(id);
-        if (interaction == null) return NotFound();
-
-        await _interactionRepository.DeleteInteraction(interaction);
-        return NoContent();
-    }
-
 }

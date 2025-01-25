@@ -1,1 +1,13 @@
-<p>home works!</p>
+<!-- home.component.html -->
+
+<div class="container">
+    <h1 class="title">Drugs Interaction Checker</h1>
+
+    <div class="card flex justify-content-center size">
+        <p-multiSelect [options]="medications" [(ngModel)]="selectedMedications" optionLabel="name"
+            class="ng-dirty1 ng-invalid1" placeholder="Select Medications">
+        </p-multiSelect>
+
+        <button pButton type="button" label="Check" (click)="onCheck()" class="p-button-outlined check"></button>
+    </div>
+</div>

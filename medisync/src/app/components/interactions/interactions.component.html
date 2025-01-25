@@ -1,0 +1,50 @@
+<!-- src/app/components/interactions/interactions.component.html -->
+<div class="interactions-container">
+    <h2>Manage Interactions</h2>
+
+    <form [formGroup]="interactionForm" (ngSubmit)="addInteraction()">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="medication1Id">Medication 1:</label>
+                <p-dropdown id="medication1Id" formControlName="medication1Id" [options]="medications"
+                    optionLabel="name" placeholder="Select Medication 1">
+                </p-dropdown>
+            </div>
+            <div class="p-field">
+                <label for="medication2Id">Medication 2:</label>
+                <p-dropdown id="medication2Id" formControlName="medication2Id" [options]="medications"
+                    optionLabel="name" placeholder="Select Medication 2">
+                </p-dropdown>
+            </div>
+            <div class="p-field">
+                <label for="interactionType">Interaction Type:</label>
+                <input id="interactionType" pInputText formControlName="interactionType" type="text" required>
+            </div>
+            <div class="p-field">
+                <label for="reasoning">Reasoning:</label>
+                <textarea id="reasoning" pInputTextarea formControlName="reasoning" required></textarea>
+            </div>
+            <div class="p-field">
+                <label for="pros">Pros:</label>
+                <input id="pros" formControlName="pros" placeholder="Add Pros" />
+            </div>
+            <div class="p-field">
+                <label for="cons">Cons:</label>
+                <input id="cons" formControlName="cons" placeholder="Add Cons" />
+            </div>
+            <div class="p-field">
+                <label for="severity">Severity:</label>
+                <p-dropdown id="severity" formControlName="severity" [options]="['Low', 'Medium', 'High']"
+                    placeholder="Select Severity">
+                </p-dropdown>
+            </div>
+            <button pButton type="submit" label="Add Interaction" [disabled]="interactionForm.invalid"></button>
+        </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+
+    <h3>Existing Interactions</h3>
+</div>

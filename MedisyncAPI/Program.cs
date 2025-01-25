@@ -12,35 +12,50 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // 2. Add controller support
 builder.Services.AddControllers();
 
-
+// 3. Register Repositories
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
 builder.Services.AddScoped<IInteractionRepository, InteractionRepository>();
 
-// 3. Enable Swagger Services
+// 4. Enable Swagger Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// 5. Add Logging
 builder.Services.AddLogging();
+
+// 6. Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policyBuilder =>
+        {
+            policyBuilder
+                .WithOrigins("http://localhost:4200", "https://localhost:4200") // Include both HTTP and HTTPS
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
 
 var app = builder.Build();
 
-// 4. Configure the middleware
+// 7. Apply CORS Middleware Early
+app.UseCors("AllowAngularApp");
+
+// 8. Configure Swagger Only in Development
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    // Serve the Swagger UI at /swagger
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// If you want Swagger always (even in production), you can do:
-app.UseSwagger();
-app.UseSwaggerUI();
-
+// 9. Use HTTPS Redirection
 app.UseHttpsRedirection();
+
+// 10. Use Authorization Middleware
 app.UseAuthorization();
 
-// 5. Map Controllers
+// 11. Map Controllers
 app.MapControllers();
 
 app.Run();

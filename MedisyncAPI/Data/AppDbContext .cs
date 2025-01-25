@@ -13,6 +13,7 @@ namespace MedisyncAPI.Data
 
         // DbSet for Medications
         public DbSet<Medication> Medications { get; set; }
+        public DbSet<User> Users { get; set; }
 
         // DbSet for Interactions
         public DbSet<Interaction> Interactions { get; set; }

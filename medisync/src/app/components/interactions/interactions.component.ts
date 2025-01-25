@@ -11,7 +11,7 @@ import { ShardModule } from '../../shared/shard.module';
 @Component({
   selector: 'app-interactions',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,ShardModule],
+  imports: [FormsModule, ReactiveFormsModule, ShardModule],
   templateUrl: './interactions.component.html',
   styleUrls: ['./interactions.component.scss']
 })
@@ -21,6 +21,11 @@ export class InteractionsComponent implements OnInit {
   medications: Medication[] = [];
   errorMessage: string = '';
 
+  severityOptions = [
+    { label: 'Low', value: 1 },
+    { label: 'Medium', value: 2 },
+    { label: 'High', value: 3 },
+  ];
   constructor(
     private interactionService: InteractionService,
     private medicationService: MedicationService,
@@ -33,13 +38,14 @@ export class InteractionsComponent implements OnInit {
       reasoning: ['', Validators.required],
       pros: [''],
       cons: [''],
-      severity: ['', Validators.required]
+      severity: [0, Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.loadInteractions();
     this.loadMedications();
+    this.resetform();
   }
 
   loadInteractions(): void {
@@ -48,7 +54,9 @@ export class InteractionsComponent implements OnInit {
       error: (err) => this.errorMessage = err
     });
   }
-
+  resetform(): void {
+    this.interactionForm.reset();
+  }
   loadMedications(): void {
     this.medicationService.getAllMedications().subscribe({
       next: (data) => this.medications = data,

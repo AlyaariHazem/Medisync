@@ -6,13 +6,13 @@
         <div class="p-fluid">
             <div class="p-field">
                 <label for="medication1Id">Medication 1:</label>
-                <p-dropdown id="medication1Id" formControlName="medication1Id" [options]="medications"
+                <p-dropdown id="medication1Id" formControlName="medication1Id" [checkmark]="true" [options]="medications" [editable]="true" [showClear]="true"
                     optionLabel="name" placeholder="Select Medication 1">
                 </p-dropdown>
             </div>
             <div class="p-field">
                 <label for="medication2Id">Medication 2:</label>
-                <p-dropdown id="medication2Id" formControlName="medication2Id" [options]="medications"
+                <p-dropdown id="medication2Id" formControlName="medication2Id" [checkmark]="true" [options]="medications" [editable]="true" [showClear]="true"
                     optionLabel="name" placeholder="Select Medication 2">
                 </p-dropdown>
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="p-field">
                 <label for="severity">Severity:</label>
-                <p-dropdown id="severity" formControlName="severity" [options]="['Low', 'Medium', 'High']"
+                <p-dropdown id="severity" formControlName="severity" [options]="severityOptions"
                     placeholder="Select Severity">
                 </p-dropdown>
             </div>

@@ -6,7 +6,7 @@ export interface Interaction {
     reasoning: string;
     pros: string|null;
     cons: string|null;
-    severity: string;
+    severity: number;
   }
   export interface InteractionDTO {
     medication1Id: number;
@@ -15,5 +15,5 @@ export interface Interaction {
     reasoning: string;
     pros: string|null;
     cons: string|null;
-    severity: string;
+    severity: number;
   }

@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="interactions-container">
     <!-- Page Title -->
     <div class="header">
@@ -7,7 +6,7 @@
     </div>
 
     <!-- Interaction Form -->
-    <form [formGroup]="interactionForm" (ngSubmit)="addInteraction()" class="form-card">
+    <form [formGroup]="interactionForm" (ngSubmit)="onSubmit()" class="form-card">
         <div class="p-fluid grid">
             <!-- Medication 1 -->
             <div class="p-field col-12 md:col-6">
@@ -59,8 +58,12 @@
 
             <!-- Submit Button -->
             <div class="p-field col-12">
-                <button pButton type="submit" label="Add Interaction" class="primary-btn"
-                    [disabled]="interactionForm.invalid"></button>
+                <button pButton type="submit" [label]="selectedInteractionId ? 'Update' : 'Add Interaction'"
+                    class="primary-btn" [disabled]="interactionForm.invalid">
+                </button>
+                <button *ngIf="selectedInteractionId" type="button" pButton label="Cancel" class="p-button-secondary"
+                    (click)="resetForm()">
+                </button>
             </div>
         </div>
     </form>
@@ -73,8 +76,8 @@
     <!-- Interaction Table -->
     <h3>Existing Interactions</h3>
     <div *ngIf="interactions.length > 0; else noData" class="table-wrapper">
-        <table class="p-datatable p-datatable-responsive">
-            <thead>
+        <p-table [value]="interactions" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
                 <tr>
                     <th>Medication 1</th>
                     <th>Medication 2</th>
@@ -86,9 +89,9 @@
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let interaction of interactions">
+            </ng-template>
+            <ng-template pTemplate="body" let-interaction let-i="rowIndex">
+                <tr>
                     <td>{{ getMedicationName(interaction.medication1Id) }}</td>
                     <td>{{ getMedicationName(interaction.medication2Id) }}</td>
                     <td>{{ interaction.interactionType }}</td>
@@ -105,14 +108,14 @@
                             severity="danger" styleClass="p-button-text"></p-button>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+            </ng-template>
+        </p-table>
     </div>
+
+    <!-- No Data Message -->
     <ng-template #noData>
         <div class="no-data">
             <p>No interactions available. Start adding some!</p>
         </div>
     </ng-template>
 </div>
-
-<app-footer></app-footer>

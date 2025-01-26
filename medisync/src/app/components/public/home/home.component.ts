@@ -1,20 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { MedicationService } from '../../core/services/medication.service';
-import { InteractionService } from '../../core/services/interaction.service';
-import { Medication } from '../../core/models/Medication .model';
-import { Interaction } from '../../core/models/Interaction .model';
-import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
-import { HeaderComponent } from '../../auth/header/header.component';
-import { FooterComponent } from '../../auth/footer/footer.component';
+
+import { Medication } from '../../../core/models/Medication .model';
+import { Interaction } from '../../../core/models/Interaction .model';
+import { MedicationService } from '../../../core/services/medication.service';
+import { InteractionService } from '../../../core/services/interaction.service';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [FormsModule, MultiSelectModule,HeaderComponent,FooterComponent, ButtonModule,CommonModule,CardModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })

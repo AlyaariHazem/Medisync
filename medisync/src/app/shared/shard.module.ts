@@ -3,16 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
-const components=[
-  HeaderComponent,
-  FooterComponent
-];
+// const components=[
+//   HeaderComponent,
+//   FooterComponent
+// ];
 
 const modules=[
    FormsModule,
@@ -26,11 +24,11 @@ const modules=[
 ]
 
 @NgModule({
- declarations: [...components],
+//  declarations: [...components],
  imports: [...modules],
  exports:[
     ...modules,
-    ...components
+   //  ...components
  ]
 })
 export class ShardModule {}

@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="medications-container">
     <!-- Header Section -->
     <div class="header">
@@ -29,7 +28,7 @@
 
             <!-- Submit Button -->
             <div class="p-field col-12">
-                <button pButton type="submit" [label]="selectedMedicationId ? 'Update Medication' : 'Add'"
+                <button pButton type="submit" [label]="selectedMedicationId ? 'Update' : 'Add'"
                     [disabled]="medicationForm.invalid" class="primary-btn"></button>
             </div>
         </div>
@@ -86,5 +85,3 @@
         </div>
     </ng-template>
 </div>
-
-<app-footer></app-footer>

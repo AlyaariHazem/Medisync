@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MedisyncAPI.models;
+using MedisyncAPI.Data.Seeds;
+using Microsoft.AspNetCore.Identity;
 
 namespace MedisyncAPI.Data
 {
@@ -14,14 +16,16 @@ namespace MedisyncAPI.Data
         // DbSet for Medications
         public DbSet<Medication> Medications { get; set; }
         public DbSet<User> Users { get; set; }
-
-        // DbSet for Interactions
         public DbSet<Interaction> Interactions { get; set; }
 
         // Override OnModelCreating if you need to configure relationships or constraints
        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Seed data by calling the seed methods
+            MedicationSeedData.Seed(modelBuilder);
+            InteractionSeedData.Seed(modelBuilder);
 
             // Interaction → Medication1
             modelBuilder.Entity<Interaction>()
@@ -36,15 +40,19 @@ namespace MedisyncAPI.Data
                 .WithMany(m => m.InteractionsAsMed2)
                 .HasForeignKey(i => i.Medication2Id)
                 .OnDelete(DeleteBehavior.Restrict);
-                // Seed a default user
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 2, // Ensure this ID doesn't conflict with existing IDs
-                    Username = "Admin",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Adm!n159")
-                }
-            );
+
+            // Instantiate PasswordHasher
+            var passwordHasher = new PasswordHasher<User>();
+
+            // Seed a default user
+            var adminUser = new User
+            {
+                Id = 1,
+                Username = "Admin",
+            };
+            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "Adm!n159");
+
+            modelBuilder.Entity<User>().HasData(adminUser);
         }
     }
 }

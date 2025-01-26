@@ -1,30 +1,23 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
 import { MedicationDetailComponent } from './components/medication-detail/medication-detail.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { LoginComponent } from './auth/login/login.component';
-import { InteractionsComponent } from './components/user/interactions/interactions.component';
-import { MedicationsComponent } from './components/user/medications/medications.component';
-import { RegisterComponent } from './auth/register/register.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/public', pathMatch: 'full' },
 
-  // Public Pages
-  { path: 'home', component: HomeComponent },
-  { path: 'medications/:id', component: MedicationDetailComponent },
-  { path: 'login', component: LoginComponent },
   {
-    path: 'user', children: [
-      {path:'',component:InteractionsComponent},
-      { path: 'home', component: InteractionsComponent },
-      { path: 'interaction', component: InteractionsComponent },
-      { path: 'medication', component: MedicationsComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'notfound', component: NotFoundComponent },
-      {path:'**',redirectTo:'notfound',pathMatch:'full'}
-    ]
+    path: 'public',
+    loadChildren: () => import('./components/public/public.module').then(m => m.PublicModule)
   },
-  { path: '**', component: NotFoundComponent }
+
+  { path: 'medications/:id', component: MedicationDetailComponent },
+
+  {
+    path: 'user',
+    loadChildren: () => import('./components/user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard],
+  },
+
+  { path: '**', redirectTo: '/public/notfound', pathMatch: 'full' }
 ];

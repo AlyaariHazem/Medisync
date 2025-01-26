@@ -9,14 +9,11 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
-import { SharedModule } from 'primeng/api';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone:true,
-  imports: [FormsModule,SharedModule,HeaderComponent,FooterComponent, ButtonModule,CommonModule,CardModule,PasswordModule,MessageModule,ReactiveFormsModule,InputTextModule],
+  imports: [FormsModule, ButtonModule,CommonModule,CardModule,PasswordModule,MessageModule,ReactiveFormsModule,InputTextModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -51,7 +48,7 @@ export class LoginComponent implements OnInit {
     const user: User = this.loginForm.value;
     this.authService.login(user).subscribe({
       next: (response) => {
-        this.router.navigateByUrl('user');
+        this.router.navigateByUrl('/user/login');
       },
       error: (error) => {
         this.errorMessage = 'Invalid username or password. Please try again.';

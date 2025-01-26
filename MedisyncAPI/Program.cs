@@ -1,9 +1,9 @@
-// File: Program.cs
 using MedisyncAPI.Data;
+using MedisyncAPI.models;
 using MedisyncAPI.Repositories.Classes;
 using MedisyncAPI.Repositories.Interfaces;
-using MedisyncAPI.Services; // Add this
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -22,8 +22,8 @@ builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
 builder.Services.AddScoped<IInteractionRepository, InteractionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// 4. Register Services
-builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>(); // Register PasswordHasherService
+// 4. Register Built-in Password Hasher
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // 5. Enable Swagger Services
 builder.Services.AddEndpointsApiExplorer();

@@ -1,7 +1,6 @@
-// File: Controllers/AuthController.cs
 using MedisyncAPI.models;
 using MedisyncAPI.Repositories.Interfaces;
-using MedisyncAPI.Services;
+using Microsoft.AspNetCore.Identity; // Import this namespace
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,12 +18,12 @@ namespace MedisyncAPI.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
-        private readonly IPasswordHasher _passwordHasher;
+        private readonly IPasswordHasher<User> _passwordHasher; // Use built-in interface
 
         public AuthController(
             IConfiguration configuration,
             IUserRepository userRepository,
-            IPasswordHasher passwordHasher)
+            IPasswordHasher<User> passwordHasher) // Update parameter type
         {
             _configuration = configuration;
             _userRepository = userRepository;
@@ -43,16 +42,15 @@ namespace MedisyncAPI.Controllers
             if (existingUser != null)
                 return Conflict(new { message = "Username is already taken." });
 
-            // Hash the password
-            var hashedPassword = _passwordHasher.HashPassword(registerModel.Password);
-
-            // Create the user entity
+            // Create a user instance for hashing
             var user = new User
             {
-                Username = registerModel.Username,
-                PasswordHash = hashedPassword
+                Username = registerModel.Username
                 // Initialize other properties if any
             };
+
+            // Hash the password
+            user.PasswordHash = _passwordHasher.HashPassword(user, registerModel.Password);
 
             // Save the user to the database
             await _userRepository.CreateUserAsync(user);
@@ -76,8 +74,8 @@ namespace MedisyncAPI.Controllers
                 return Unauthorized(new { message = "Invalid credentials." });
 
             // Verify the password
-            var isPasswordValid = _passwordHasher.VerifyPassword(user.PasswordHash, loginModel.Password);
-            if (!isPasswordValid)
+            var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginModel.Password);
+            if (verificationResult == PasswordVerificationResult.Failed)
                 return Unauthorized(new { message = "Invalid credentials." });
 
             // Generate JWT token
@@ -113,8 +111,7 @@ namespace MedisyncAPI.Controllers
                 expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
                 signingCredentials: credentials
             );
-
-            // Return the serialized token
+            
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

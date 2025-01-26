@@ -28,6 +28,6 @@ export class AuthAPIService {
 
   logout() {
     localStorage.removeItem('medisync');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/public']);
   }
 }

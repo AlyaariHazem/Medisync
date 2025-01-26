@@ -1,0 +1,141 @@
+.title {
+  text-align: center;
+  display: block;
+}
+.title1 {
+  text-align: center;
+  display:none;
+}
+.container{
+  height: 100%;
+}
+.size {
+  width: 59%;
+}
+:host ::ng-deep {
+  .p-multiselect {
+    width: 100% !important;
+    height: 50px;
+    margin-left: 29% !important;
+  }
+  p-multiselect{
+    width: 100%;
+  }
+}
+.check{
+  margin-left: 50%;
+  margin-top: 1.5rem;
+}
+@media screen and (max-width: 768px) {
+  .size {
+    width: 90%;
+  }
+  .check{
+    margin-left: 0;
+  }
+  .title1 {
+    text-align: center;
+    display: block;
+  }
+  .title {
+    display: none;
+  }
+  :host ::ng-deep {
+    .p-multiselect {
+      width: 90% !important;
+      margin-left: 1% !important;
+    }
+  }
+}
+
+.results-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.results-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #314051;
+}
+
+.results-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.results-container ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.results-container ul li:last-child {
+  border-bottom: none;
+}
+
+.results-container p {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+.results-container {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.results-title {
+  font-size: 1.8rem;
+  color: #314051;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.interaction-card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.interaction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007ad9;
+}
+
+.interaction-header i {
+  font-size: 1.5rem;
+  color: #314051;
+}
+
+.interaction-details p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.interaction-footer {
+  font-size: 1rem;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-top: 20px;
+}

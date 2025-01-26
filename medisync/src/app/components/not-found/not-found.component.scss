@@ -1,0 +1,33 @@
+/* src/app/not-found/not-found.component.css */
+
+.not-found-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .home{
+    margin-bottom: 2rem;
+    cursor: pointer;
+  }
+  .not-found-container h1 {
+    font-size: 3em;
+    color: #ff0000;
+  }
+  
+  .not-found-container p {
+    font-size: 1.5em;
+  }
+  
+  .not-found-container a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .not-found-container a:hover {
+    background-color: #0056b3;
+  }
+  

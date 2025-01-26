@@ -3,6 +3,7 @@ using MedisyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedisyncAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250125202533_convertSeverityToString")]
+    partial class convertSeverityToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,14 +106,6 @@ namespace MedisyncAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            PasswordHash = "$2a$11$N0HhZNL2F3wNrHpWyPbm/.3AJQ6cIRf3.5xqhPLL0k0eb6GPpGTOS",
-                            Username = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("MedisyncAPI.models.Interaction", b =>

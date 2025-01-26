@@ -1,3 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap');
+body,td,button,th,h1,h3{
+    font-family: 'Poppins', sans-serif!important;
+
+}

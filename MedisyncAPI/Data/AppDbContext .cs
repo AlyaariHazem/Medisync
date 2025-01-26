@@ -36,6 +36,15 @@ namespace MedisyncAPI.Data
                 .WithMany(m => m.InteractionsAsMed2)
                 .HasForeignKey(i => i.Medication2Id)
                 .OnDelete(DeleteBehavior.Restrict);
+                // Seed a default user
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 2, // Ensure this ID doesn't conflict with existing IDs
+                    Username = "Admin",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Adm!n159")
+                }
+            );
         }
     }
 }

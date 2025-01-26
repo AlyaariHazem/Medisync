@@ -1,17 +1,22 @@
-// Update Interaction Form to use dropdowns for medications
-// src/app/components/interactions/interactions.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Interaction } from '../../core/models/Interaction .model';
-import { Medication } from '../../core/models/Medication .model';
-import { InteractionService } from '../../core/services/interaction.service';
-import { MedicationService } from '../../core/services/medication.service';
-import { ShardModule } from '../../shared/shard.module';
+import { Interaction } from '../../../core/models/Interaction .model';
+
+import { Medication } from '../../../core/models/Medication .model';
+import { InteractionService } from '../../../core/services/interaction.service';
+import { MedicationService } from '../../../core/services/medication.service';
+import { CommonModule } from '@angular/common';
+import { ShardModule } from '../../../shared/shard.module';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-interactions',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ShardModule],
+  standalone:true,
+  imports:[CommonModule,
+  FormsModule,
+  ReactiveFormsModule, 
+  ShardModule,
+  ButtonModule,],
   templateUrl: './interactions.component.html',
   styleUrls: ['./interactions.component.scss']
 })
@@ -20,11 +25,11 @@ export class InteractionsComponent implements OnInit {
   interactionForm: FormGroup;
   medications: Medication[] = [];
   errorMessage: string = '';
-
+  isUpdate:boolean=false;
   severityOptions = [
-    { label: 'Low', value: 1 },
-    { label: 'Medium', value: 2 },
-    { label: 'High', value: 3 },
+    { label: 'Low', value: 'Low' },
+    { label: 'Medium', value: 'Medium' },
+    { label: 'High', value: 'High' },
   ];
   constructor(
     private interactionService: InteractionService,
@@ -57,6 +62,7 @@ export class InteractionsComponent implements OnInit {
   resetform(): void {
     this.interactionForm.reset();
   }
+
   loadMedications(): void {
     this.medicationService.getAllMedications().subscribe({
       next: (data) => this.medications = data,
@@ -79,6 +85,35 @@ export class InteractionsComponent implements OnInit {
       error: (err) => this.errorMessage = err
     });
   }
-
+  
+  editInteraction(interaction: Interaction): void {
+    this.interactionForm.patchValue({
+      medication1Id: interaction.medication1Id,
+      medication2Id: interaction.medication2Id,
+      interactionType: interaction.interactionType,
+      reasoning: interaction.reasoning,
+      pros: interaction.pros,
+      cons: interaction.cons,
+      severity: interaction.severity
+    });
+  }
+  deleteInteraction(id: number): void {
+    if (confirm('Are you sure you want to delete this interaction?')) {
+      this.interactionService.deleteInteraction(id).subscribe({
+        next: () => this.loadInteractions(),
+        error: (err) => (this.errorMessage = err)
+      });
+    }
+  }
+  getMedicationName(id: number): string {
+    const medication = this.medications.find((m) => m.id === id);
+    return medication ? medication.name : 'Unknown';
+  }
+  
+  getSeverityLabel(value: string): string {
+    const severity = this.severityOptions.find((s) => s.value === value);
+    return severity ? severity.label : 'Unknown';
+  }
+    
   // Implement update and delete methods as needed
 }

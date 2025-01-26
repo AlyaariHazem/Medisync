@@ -17,6 +17,6 @@ public class InteractionDTO
     // Add the new fields
     public string? Pros { get; set; } 
     public string? Cons { get; set; }
-    public SeverityLevel Severity { get; set; } = SeverityLevel.None;
+    public string Severity { get; set; } = string.Empty;
 }
 

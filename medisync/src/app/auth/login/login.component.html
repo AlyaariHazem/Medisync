@@ -1,1 +1,49 @@
-<p>login works!</p>
+<app-header></app-header>
+<div class="login-container flex justify-content-center align-items-center min-h-screen">
+    <p-card header="Login" class="login-card w-full w-md-6">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-fluid">
+
+            <!-- Username and Password Fields -->
+            <div class="p-grid p-nogutter">
+                <!-- Username Field -->
+                <div class="p-field p-col-12 p-md-6">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" pInputText formControlName="username"
+                        placeholder="Enter your username"
+                        [ngClass]="{'p-invalid': isSubmitted && loginForm.get('username')?.invalid}" />
+                    <small *ngIf="isSubmitted && loginForm.get('username')?.invalid" class="p-error">
+                        Username is required.
+                    </small>
+                </div>
+
+                <!-- Password Field -->
+                <div class="p-field p-col-12 p-md-6">
+                    <label for="password">Password</label>
+                    <p-password id="password" formControlName="password" placeholder="Enter your password"
+                        feedback="false"
+                        [ngClass]="{'p-invalid': isSubmitted && loginForm.get('password')?.invalid}"></p-password>
+                    <small *ngIf="isSubmitted && loginForm.get('password')?.invalid" class="p-error">
+                        Password is required.
+                    </small>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="p-grid p-nogutter">
+                <div class="p-field p-col-12 text-right">
+                    <button pButton type="submit" label="Login" class="primary-btn"
+                        [disabled]="loginForm.invalid"></button>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="p-grid p-nogutter" *ngIf="errorMessage">
+                <div class="p-col-12">
+                    <p-message severity="error" text="{{ errorMessage }}"></p-message>
+                </div>
+            </div>
+
+        </form>
+    </p-card>
+</div>
+<app-footer></app-footer>

@@ -20,7 +20,7 @@ public class Interaction
     // Add these new properties
     public string? Pros { get; set; } = string.Empty;
     public string? Cons { get; set; } = string.Empty;
-    public SeverityLevel Severity { get; set; } = SeverityLevel.None;
+    public string Severity { get; set; } = string.Empty;
 
     [JsonIgnore]
     public Medication? Medication1 { get; set; }

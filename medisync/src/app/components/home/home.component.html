@@ -1,13 +1,53 @@
-<!-- home.component.html -->
-
+<app-header></app-header>
 <div class="container">
     <h1 class="title">Drugs Interaction Checker</h1>
+    <h2 class="title1">Drugs Interaction Checker</h2> <!-- This is for Mobile -->
 
+    <!-- Medication Selector -->
     <div class="card flex justify-content-center size">
         <p-multiSelect [options]="medications" [(ngModel)]="selectedMedications" optionLabel="name"
-            class="ng-dirty1 ng-invalid1" placeholder="Select Medications">
+            placeholder="Select Medications">
         </p-multiSelect>
 
-        <button pButton type="button" label="Check" (click)="onCheck()" class="p-button-outlined check"></button>
+    </div>
+    <button pButton type="button" label="Check" (click)="onCheck()" class="p-button-outlined check">
+    </button>
+
+    <!-- Interaction Results -->
+    <div *ngIf="showResults" class="results-container">
+        <h2 class="results-title">Interaction Results</h2>
+
+        <!-- Display Interactions -->
+        <div *ngIf="interactions.length > 0; else noResults">
+            <div class="card-grid">
+                <p-card *ngFor="let interaction of interactions" class="interaction-card">
+                    <ng-template pTemplate="header">
+                        <div class="interaction-header">
+                            <span>{{ getMedicationName(interaction.medication1Id) }}</span>
+                            <i class="pi pi-arrow-right"></i>
+                            <span>{{ getMedicationName(interaction.medication2Id) }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="interaction-details">
+                        <p><strong>Type:</strong> {{ interaction.interactionType }}</p>
+                        <p><strong>Reasoning:</strong> {{ interaction.reasoning }}</p>
+                    </div>
+                    <ng-template pTemplate="footer">
+                        <div class="interaction-footer">
+                            <p><strong>Severity:</strong> {{ getSeverityLabel(interaction.severity) }}</p>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+
+        <!-- No Results Fallback -->
+        <ng-template #noResults>
+            <div class="no-results">
+                <p>No interactions found for the selected medications.</p>
+            </div>
+        </ng-template>
     </div>
 </div>
+
+<app-footer></app-footer>

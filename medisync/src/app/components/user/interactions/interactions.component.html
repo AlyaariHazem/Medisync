@@ -1,0 +1,118 @@
+<app-header></app-header>
+<div class="interactions-container">
+    <!-- Page Title -->
+    <div class="header">
+        <h2>Manage Interactions</h2>
+        <p class="subtitle">Easily add, edit, and manage medication interactions.</p>
+    </div>
+
+    <!-- Interaction Form -->
+    <form [formGroup]="interactionForm" (ngSubmit)="addInteraction()" class="form-card">
+        <div class="p-fluid grid">
+            <!-- Medication 1 -->
+            <div class="p-field col-12 md:col-6">
+                <label for="medication1Id">Medication 1:</label>
+                <p-dropdown id="medication1Id" formControlName="medication1Id" [options]="medications"
+                    optionLabel="name" optionValue="id" [showClear]="true" placeholder="Select Medication 1">
+                </p-dropdown>
+            </div>
+
+            <!-- Medication 2 -->
+            <div class="p-field col-12 md:col-6">
+                <label for="medication2Id">Medication 2:</label>
+                <p-dropdown id="medication2Id" formControlName="medication2Id" [options]="medications"
+                    optionLabel="name" optionValue="id" [showClear]="true" placeholder="Select Medication 2">
+                </p-dropdown>
+            </div>
+
+            <!-- Interaction Type -->
+            <div class="p-field col-12">
+                <label for="interactionType">Interaction Type:</label>
+                <input id="interactionType" pInputText formControlName="interactionType"
+                    placeholder="Enter Interaction Type" />
+            </div>
+
+            <!-- Reasoning -->
+            <div class="p-field col-12">
+                <label for="reasoning">Reasoning:</label>
+                <textarea id="reasoning" pInputTextarea formControlName="reasoning"
+                    placeholder="Enter Reasoning"></textarea>
+            </div>
+
+            <!-- Pros and Cons -->
+            <div class="p-field col-12 md:col-6">
+                <label for="pros">Pros:</label>
+                <input id="pros" pInputText formControlName="pros" placeholder="Enter Pros" />
+            </div>
+            <div class="p-field col-12 md:col-6">
+                <label for="cons">Cons:</label>
+                <input id="cons" pInputText formControlName="cons" placeholder="Enter Cons" />
+            </div>
+
+            <!-- Severity -->
+            <div class="p-field col-12">
+                <label for="severity">Severity:</label>
+                <p-dropdown id="severity" formControlName="severity" [options]="severityOptions" optionLabel="label"
+                    optionValue="value" placeholder="Select Severity">
+                </p-dropdown>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="p-field col-12">
+                <button pButton type="submit" label="Add Interaction" class="primary-btn"
+                    [disabled]="interactionForm.invalid"></button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Interaction Table -->
+    <h3>Existing Interactions</h3>
+    <div *ngIf="interactions.length > 0; else noData" class="table-wrapper">
+        <table class="p-datatable p-datatable-responsive">
+            <thead>
+                <tr>
+                    <th>Medication 1</th>
+                    <th>Medication 2</th>
+                    <th>Type</th>
+                    <th>Reasoning</th>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                    <th>Severity</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let interaction of interactions">
+                    <td>{{ getMedicationName(interaction.medication1Id) }}</td>
+                    <td>{{ getMedicationName(interaction.medication2Id) }}</td>
+                    <td>{{ interaction.interactionType }}</td>
+                    <td>{{ interaction.reasoning }}</td>
+                    <td>{{ interaction.pros || 'N/A' }}</td>
+                    <td>{{ interaction.cons || 'N/A' }}</td>
+                    <td>{{ getSeverityLabel(interaction.severity) }}</td>
+                    <td>
+                        <p-button (click)="editInteraction(interaction)" label="Edit" icon="pi pi-pencil"
+                            severity="info" styleClass="p-button-text"></p-button>
+                    </td>
+                    <td>
+                        <p-button (click)="deleteInteraction(interaction.id)" label="Delete" icon="pi pi-trash"
+                            severity="danger" styleClass="p-button-text"></p-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noData>
+        <div class="no-data">
+            <p>No interactions available. Start adding some!</p>
+        </div>
+    </ng-template>
+</div>
+
+<app-footer></app-footer>

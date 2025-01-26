@@ -13,21 +13,21 @@ export class AuthAPIService {
   constructor(public router: Router) {}
 
   login(user: User): Observable<{ token: string }> {
-    return this.API.http.post<{ token: string }>(`${this.API.baseUrl}/account/login`, user).pipe(
+    return this.API.http.post<{ token: string }>(`${this.API.baseUrl}/auth/login`, user).pipe(
       tap((response) => {
         if (response?.token) {
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('medisync', response.token);
         }
       })
     );
   }
 
   register(user: User): Observable<any> {
-    return this.API.http.post(`${this.API.baseUrl}/account/register`, user);
+    return this.API.http.post(`${this.API.baseUrl}/auth/register`, user);
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('medisync');
     this.router.navigate(['/login']);
   }
 }

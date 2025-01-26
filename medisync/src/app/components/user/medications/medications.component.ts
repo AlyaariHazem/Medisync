@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Medication, MedicationDTO } from '../../core/models/Medication .model';
-import { MedicationService } from '../../core/services/medication.service';
-import { ShardModule } from '../../shared/shard.module';
+import { Medication, MedicationDTO } from '../../../core/models/Medication .model';
+import { MedicationService } from '../../../core/services/medication.service';
+import { ShardModule } from '../../../shared/shard.module';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-medications',
-  standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,ShardModule,ButtonModule],
+  standalone:true,
+  imports:[ShardModule,ButtonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './medications.component.html',
   styleUrls: ['./medications.component.scss']
 })

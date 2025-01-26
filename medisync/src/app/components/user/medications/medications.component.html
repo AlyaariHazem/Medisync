@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="medications-container">
+    <!-- Header Section -->
+    <div class="header">
+        <h2>Manage Medications</h2>
+        <p class="subtitle">Add, update, search, and manage medication details seamlessly.</p>
+    </div>
+
+    <!-- Medication Form -->
+    <form [formGroup]="medicationForm" (ngSubmit)="onSubmit()" class="form-card">
+        <div class="p-fluid grid">
+            <!-- Name Field -->
+            <div class="p-field col-12 md:col-6">
+                <label for="name">Name:</label>
+                <input id="name" formControlName="name" pInputText placeholder="Enter medication name" />
+            </div>
+
+            <!-- Use Field -->
+            <div class="p-field col-12 md:col-6">
+                <label for="use">Use:</label>
+                <input id="use" formControlName="use" pInputText placeholder="Enter medication use" />
+            </div>
+
+            <!-- Side Effects Field -->
+            <div class="p-field col-12">
+                <label for="sideEffects">Side Effects (comma-separated):</label>
+                <input id="sideEffects" formControlName="sideEffects" pInputText placeholder="Enter side effects" />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="p-field col-12">
+                <button pButton type="submit" [label]="selectedMedicationId ? 'Update Medication' : 'Add'"
+                    [disabled]="medicationForm.invalid" class="primary-btn"></button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <input [(ngModel)]="searchQuery" pInputText placeholder="Search medications..." />
+        <button pButton label="Search" icon="pi pi-search" (click)="searchMedications()" class="search-btn"></button>
+    </div>
+
+    <!-- Medication Table -->
+    <h3>Existing Medications</h3>
+    <div *ngIf="medications.length > 0; else noData" class="table-wrapper">
+        <p-table [value]="medications" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Use</th>
+                    <th>Side Effects</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-medication let-i="rowIndex">
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ medication.name }}</td>
+                    <td>{{ medication.use }}</td>
+                    <td>{{ medication.sideEffects }}</td>
+                    <td>
+                            <p-button (click)="editMedication(medication)" label="Edit" icon="pi pi-pencil"
+                            severity="info" styleClass="p-button-text"></p-button>
+                    </td>
+                    <td>
+                        <p-button (click)="deleteMedication(medication.id)" label="Delete" icon="pi pi-trash"
+                            severity="danger" styleClass="p-button-text"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <!-- No Data Message -->
+    <ng-template #noData>
+        <div class="no-data">
+            <p>No medications found. Add a new one!</p>
+        </div>
+    </ng-template>
+</div>
+
+<app-footer></app-footer>

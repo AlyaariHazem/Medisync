@@ -1,4 +1,3 @@
-<!-- header.component.html -->
 <header>
     <nav>
       <div class="logo">Medisync</div>
@@ -7,16 +6,19 @@
       </button>
       <ul class="nav-links" [class.active]="isMenuActive">
         <li>
-          <a routerLink="/home" routerLinkActive="active-link">Interaction Checker</a>
+          <a routerLink="/user/home" routerLinkActive="active-link">Interaction Checker</a>
         </li>
         <li>
-          <a routerLink="/login" routerLinkActive="active-link">Login</a>
+          <a routerLink="/user/medication" routerLinkActive="active-link">medication</a>
         </li>
         <li>
-          <a routerLink="/register" routerLinkActive="active-link">Sign Up</a>
+          <a routerLink="/user/register" routerLinkActive="active-link">Sign Up</a>
         </li>
         <li>
-          <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+          <a routerLink="/user/interaction" routerLinkActive="active-link">interaction</a>
+        </li>
+        <li>
+          <a routerLink="/user/notfound" routerLinkActive="active-link">Dashboard</a>
         </li>
       </ul>
     </nav>

@@ -1,0 +1,20 @@
+<header>
+    <nav>
+      <div class="logo">Medisync</div>
+      <button class="menu-toggle" (click)="toggleMenu()">
+        &#9776; <!-- Hamburger icon -->
+      </button>
+      <ul class="nav-links" [class.active]="isMenuActive">
+        <li>
+          <a routerLink="/home" routerLinkActive="active-link">Interaction Checker</a>
+        </li>
+        <li>
+          <a routerLink="/login" routerLinkActive="active-link">Login</a>
+        </li>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  

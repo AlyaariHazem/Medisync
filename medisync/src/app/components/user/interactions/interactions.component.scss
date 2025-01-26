@@ -1,0 +1,175 @@
+.interactions-container {
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  
+    form {
+      display: flex;
+      flex-direction: column;
+  
+      div {
+        margin-bottom: 10px;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+  
+        input, textarea {
+          width: 100%;
+          padding: 8px;
+          height: 50px;
+          box-sizing: border-box;
+        }
+      }
+  
+      button {
+        width: 150px;
+        padding: 10px;
+        align-self: flex-start;
+      }
+    }
+  
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  }
+  :host ::ng-deep{
+    .interactions-container{
+      .p-dropdown{
+        height: 50px;
+      }
+    }
+  }
+  input, textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #314051;
+    border-radius: 4px;
+    height: 50px;
+    box-sizing: border-box;
+    transition: border 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+  }
+
+  input:hover, textarea:hover {
+    border: 1px solid #5ea1e7;
+  }
+
+  input:focus, textarea:focus {
+    border: 1px solid #5ea1e7;
+    box-shadow: 0 0 5px rgba(94, 161, 231, 0.5);
+    outline: none;
+  }
+  .interactions-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+    color: #2c3e50;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .header h2 {
+    font-size: 2rem;
+    color: #314051;
+  }
+  
+  .header .subtitle {
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
+  
+  .form-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  button.primary-btn {
+    background-color: #007ad9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  button.primary-btn:disabled {
+    background-color: #b2d7f2;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .p-datatable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .p-datatable th,
+  .p-datatable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .p-datatable th {
+    background-color: #314051;
+    color: white;
+  }
+  
+  .p-datatable tr:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .edit-btn {
+    color: #3498db;
+  }
+  
+  .delete-btn {
+    color: #e74c3c;
+  }
+  
+  .no-data {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  td,h1{
+    font-family: 'Poppins', sans-serif;  /* Main font */
+  }
